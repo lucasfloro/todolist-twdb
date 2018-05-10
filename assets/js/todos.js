@@ -1,5 +1,5 @@
 // Check off Specific Todos By Clicking
-$("li").click(function () {
+$("ul").on("click", "li", function () {
     $(this).toggleClass("completed");
     // Esta linha acima é o jeito simples e rápido de fazer todo código abaixo
     // if ($(this).css("color") === "rgb(128, 128, 128)") {
@@ -16,10 +16,20 @@ $("li").click(function () {
 });
 
 // Click on X to delete Todo
-$("span").click(function (evt) {
+$("ul").on("click", "span", function (evt) {
     $(this).parent().fadeOut(500, function() { //refer to span
         $(this).remove(); // refer to the LI
     });
     // $(this).parent().remove(); // Remove the entire LI (parent) for a span
     evt.stopPropagation(); // stop to bubbling up to other elements
+});
+
+$("input[type='text']").keypress(function(evt) {
+    if(evt.which === 13) {
+        // grabbing new todo text from input
+        let todoText = $(this).val();
+        $(this).val("");
+        //create a new li and add to ul
+        $("ul").append("<li><span>X</span> " + todoText + "</li>");
+    }
 });
